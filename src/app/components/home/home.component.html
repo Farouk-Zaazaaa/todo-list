@@ -1,0 +1,101 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Add note
+  </button>
+
+  <div class="container my-5">
+    <div class="row g-4">
+      @for (note of noteList; track $index) {
+        <div class="col-md-4">
+          <div class="card bg-light rounded p-3">
+            <h3>{{note.title}}</h3>
+            <p>{{note.content}}</p>
+          </div>
+  
+          <button class="btn btn-primary" (click)="setUpdateNote(note)">Update</button>
+          <button class="btn btn-danger" (click)="deleteNote(note._id)">Delete</button>
+        </div>
+      }
+    </div>
+  </div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+
+
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">add note</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+
+        <form [formGroup]="addNoteForm" (ngSubmit)="addNote()">
+
+            <div class="modal-body">
+                
+                
+                
+                <div class="my-3">
+                    <label for="">title</label>
+                    <input class="form-control" type="text" formControlName="title">
+                </div>
+                
+                <div class="my-3">
+                    <label for="">content</label>
+                    <input class="form-control" type="text" formControlName="content">
+                </div>
+                
+                
+            </div>
+            
+            
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">add note</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+
+    <div class="modal-dialog">
+
+
+      <div class="modal-content">
+
+
+
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+
+
+        <form [formGroup]="updateNoteForm" >
+            <div class="modal-body">
+                <label for="">title :</label>
+                <input type="text" class="form-control" formControlName="title">
+                <label for="">content :</label>
+                <input type="text" class="form-control" formControlName="content">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" (click)="updateNote()">update NOTE</button>
+            </div>
+        </form>
+
+
+
+
+
+      </div>
+    </div>
+  </div>

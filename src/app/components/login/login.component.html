@@ -1,0 +1,49 @@
+@if (errorMsg) {
+    <h6 class="alert alert-danger w-25 mx-auto text-center">{{errorMsg}}</h6>
+}
+
+<form [formGroup]="loginform" (ngSubmit)="login()" class="w-50 mx-auto my-4 shadow p-4 rounded" >
+    <div>
+        <label for="">email</label>
+        <input class="form-control" type="email" formControlName="email" [ngClass]="{
+            'is-valid' : !loginform.get('email')?.errors && loginform.get('email')?.touched ,
+            'is-invalid' : loginform.get('email')?.errors && loginform.get('email')?.touched 
+}">
+
+        @if (loginform.get("email")?.touched) {
+            <div>
+                @if (loginform.get("email")?.getError("required")) {
+                    <p class="rounded w-50 text-center mx-auto py-2 my-3 alert alert-danger">
+                        email is required
+                    </p>
+                }
+                @if (loginform.get("email")?.getError("email")) {
+                    <p class="rounded w-50 text-center mx-auto py-2 my-3 alert alert-danger">
+                        email is not valid
+                    </p>
+                }
+            </div>
+        }
+    </div>
+    <div>
+        <label for="">password</label>
+        <input class="form-control" type="password" formControlName="password">
+
+        @if (loginform.get("password")?.touched) {
+            <div>
+                @if (loginform.get("password")?.getError("required")) {
+                    <p class="rounded w-50 text-center mx-auto py-2 my-3 alert alert-danger">
+                        password is required
+                    </p>
+                }
+                @if (loginform.get("password")?.getError("pattern")) {
+                    <p class="rounded w-50 text-center mx-auto py-2 my-3 alert alert-danger">
+                        password is not valid
+                    </p>
+                }
+            </div>
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary my-3">Login</button>
+</form>
